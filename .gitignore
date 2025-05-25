@@ -45,3 +45,5 @@ bin/
 
 # === Environment / secrets ===
 .env
+
+src/test/resources/config.properties

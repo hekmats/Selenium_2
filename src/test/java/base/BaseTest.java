@@ -6,11 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.io.IOException;
-
+import java.time.Duration;
 
 
 public class BaseTest {
@@ -30,6 +30,11 @@ public class BaseTest {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
         options.addArguments("--remote-allow-origins=*");
+
+        options.addArguments("--disable-notifications"); // Disables browser popups
+        options.addArguments("--incognito");             // Starts Chrome in incognito mode
+        options.addArguments("--start-maximized");       // Starts browser maximized (note: may not affect headless)
+
 
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
