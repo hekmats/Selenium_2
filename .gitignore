@@ -1,0 +1,47 @@
+# === Build directory ===
+/build/
+
+# === IntelliJ IDEA ===
+.idea/
+*.iml
+*.iws
+out/
+
+# === VS Code ===
+.vscode/
+
+# === Eclipse ===
+.project
+.classpath
+.settings/
+bin/
+
+# === macOS ===
+.DS_Store
+
+# === Logs ===
+*.log
+
+# === OS / Temp ===
+*.swp
+*~
+*.tmp
+*.bak
+
+# === Gradle Wrapper files ===
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# === Java class files ===
+*.class
+
+# === Test results ===
+/test-output/
+*.ser
+*.dat
+*.bin
+*.idx
+*.xml
+
+# === Environment / secrets ===
+.env
