@@ -1,29 +1,51 @@
 package tests;
 
-import base.BaseTest;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
-public class RandomDataTest{
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class RandomDataTest {
 
     @Test
-    public void testWithRandomTaskTitle() {
-        Faker faker = new Faker();
+    public void testRandomTitleInEmailField() {
+        // Setup WebDriver manually
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--remote-allow-origins=*");
 
-        // Generate a random title using Faker
-        String randomTitle = faker.book().title();  // e.g., "The Winds of Dune"
+        WebDriver driver = new ChromeDriver(options);
 
-        // You could also generate other random data:
-        String randomName = faker.name().fullName();
-        String randomEmail = faker.internet().emailAddress();
-        String randomSentence = faker.lorem().sentence();
+        try {
+            // Step 1: Generate random title
+            Faker faker = new Faker();
+            String randomTitle = faker.book().title();
+            System.out.println("Generated random title: " + randomTitle);
 
-        // Print them out to verify
-        System.out.println("Random task title: " + randomTitle);
-        System.out.println("Random name: " + randomName);
-        System.out.println("Random email: " + randomEmail);
-        System.out.println("Random comment: " + randomSentence);
+            // Step 2: Navigate to ClickUp login
+            driver.get("https://app.clickup.com/login");
 
-        // In a real test: you'd use `randomTitle` in a form input
+            // Step 3: Find email input field
+            WebElement emailField = driver.findElement(By.xpath("//input[@type='email']"));
+            emailField.sendKeys(randomTitle);
+
+            // Step 4: Assert value matches
+            String fieldValue = emailField.getAttribute("value");
+            assertEquals(randomTitle, fieldValue, "The email field should contain the random title.");
+
+            System.out.println("✅ Test passed: Email field contains random title.");
+
+        } finally {
+            // Teardown
+            driver.quit();
+        }
     }
 }
